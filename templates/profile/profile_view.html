@@ -1,0 +1,9 @@
+<!-- profile/profile_view.html -->
+<h1>{{ user.username }}'s Profile</h1>
+<img src="{{ user.profile.avatar.url }}" alt="Avatar">
+<p>Email: {{ user.email }}</p>
+<p>Bio: {{ user.profile.bio }}</p>
+<p>Location: {{ user.profile.location }}</p>
+<p>Birth Date: {{ user.profile.birth_date }}</p>
+
+<a href="{% url 'profile_edit' %}">Edit Profile</a>

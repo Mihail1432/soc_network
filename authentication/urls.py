@@ -1,0 +1,21 @@
+from django.urls import path
+from django.contrib.auth import views as auth_views
+from .views import register, HomeView
+from . import views
+from django.conf import settings  # Добавьте этот импорт
+from django.conf.urls.static import static  # Добавьте этот импорт
+from .views import profile_view, profile_edit
+from .views import user_profile_view
+
+urlpatterns = [
+    path('', HomeView.as_view(), name='home'),
+    path('register/', register, name='register'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('profile/', profile_view, name='profile_view'),
+    path('profile/edit/', profile_edit, name='profile_edit'),
+    path('profile/<str:username>/', user_profile_view, name='user_profile_view'),
+]
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

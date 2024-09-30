@@ -1,0 +1,12 @@
+<!-- profile/profile.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Обновить профиль</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ u_form.as_p }}
+    {{ p_form.as_p }}
+    <button type="submit">Сохранить изменения</button>
+  </form>
+{% endblock %}
