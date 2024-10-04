@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Посты{% endblock %}
+
+{% block content %}
+    <div class="text-center mt-4">
+        <h2>Посты</h2>
+    </div>
+
+    {% for post in posts %}
+        <div class="post">
+            <div class="post-header">
+                <span><strong>{{ post.user.username }}</strong></span>
+                <span>{{ post.likes.count }} Лайков | {{ post.comments.count }} Комментариев</span>
+            </div>
+            <img src="{{ post.image.url }}" alt="Пост" class="img-fluid mt-2" style="border-radius: 10px;">
+            <div class="mt-2">
+                <p>{{ post.text }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-center">Постов пока нет.</p>
+    {% endfor %}
+{% endblock %}

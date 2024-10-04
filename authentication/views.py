@@ -13,13 +13,11 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # Автоматический вход после регистрации
-            return redirect('home')
+            return redirect('post_list')
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
-class HomeView(TemplateView):
-    template_name = 'home.html'
 
 @login_required
 def profile_edit(request):
@@ -49,7 +47,7 @@ from .forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required
 def profile_view(request):
-    user = request.user
+    user = get_object_or_404(CustomUser, username=username)
     context = {
         'user': user,
     }
