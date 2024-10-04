@@ -11,7 +11,7 @@
         <div class="post">
             <div class="post-header">
                 <span><strong>{{ post.user.username }}</strong></span>
-                <span>{{ post.likes.count }} Лайков | {{ post.comments.count }} Комментариев</span>
+                <span>{{ post.likes.count }}     <a href="{% url 'like_post' post.id %}">{{ is_liked|yesno:"Unlike,Like" }}</a> | {{ post.comments.count }} <a href="{% url 'post_detail' post.id %}" class="comment-link">Комментариев</a></span>
             </div>
             <img src="{{ post.image.url }}" alt="Пост" class="img-fluid mt-2" style="border-radius: 10px;">
             <div class="mt-2">
