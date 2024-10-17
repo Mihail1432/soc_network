@@ -25,7 +25,15 @@
         .profile-link {
             color: #ffffff;
             text-decoration: none;
+        
         }
+
+        .custom-link {
+            font-size: 35px; /* Увеличение размера текста */
+            color: #007BFF; /* Цвет текста ссылки */
+            text-decoration: none; /* Убираем подчеркивание */
+        }
+
     </style>
 </head>
 <body>
@@ -40,7 +48,7 @@
                     {% endif %}
                 </a>
             {% endif %}
-            <h1 class="text-center">Название еще в стадии придумывания</h1>
+            <a href="{% url 'post_list' %}" class="custom-link" >Соцсеть</a>
             <div></div> <!-- Пустое пространство для выравнивания -->
         </div>
         

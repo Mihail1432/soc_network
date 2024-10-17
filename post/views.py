@@ -11,7 +11,7 @@ def post_create(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-            return redirect('home')
+            return redirect('post_list')
     else:
         form = PostForm()
     return render(request, 'posts/create_post.html', {'form': form})
@@ -56,3 +56,16 @@ def post_list(request):
 
 
 
+@login_required
+def post_delete(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    
+    # Проверка, является ли текущий пользователь создателем поста
+    if post.user != request.user:
+        return redirect('post_detail', post_id=post.id)  # Или можете добавить сообщение об ошибке
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('post_list')
+
+    return render(request, 'posts/post_confirm_delete.html', {'post': post})

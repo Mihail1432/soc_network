@@ -10,7 +10,7 @@ urlpatterns = [
     path('post/new/', views.post_create, name='post_create'),
     path('post/<int:post_id>/', views.post_detail, name='post_detail'),
     path('post/<int:post_id>/like/', views.like_post, name='like_post'),
-    
+    path('post/<int:post_id>/delete/', views.post_delete, name='post_delete'),
 ]
 
 if settings.DEBUG:

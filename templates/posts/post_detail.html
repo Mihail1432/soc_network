@@ -6,12 +6,24 @@
     <a href="{% url 'like_post' post.id %}">{{ is_liked|yesno:"Unlike,Like" }}</a>
 </div>
 
+
+{% if post.user == request.user %}
+
+        
+<a href="{% url 'post_delete' post.id %}">Удалить</a>  <!-- Кнопка удаления -->
+
+
+{% endif %}
+
+
 <h2>Комментарии:</h2>
 <ul>
     {% for comment in comments %}
         <li>{{ comment.user.username }}: {{ comment.text }}</li>
     {% endfor %}
 </ul>
+
+
 
 <form method="post">
     {% csrf_token %}

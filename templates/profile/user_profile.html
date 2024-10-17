@@ -1,15 +1,19 @@
-<!-- profile/user_profile.html -->
-<h1>{{ user.username }}'s Profile</h1>
-<p>Email: {{ user.email }}</p>
-<p>First Name: {{ user.first_name }}</p>
-<p>Last Name: {{ user.last_name }}</p>
-<p>Bio: {{ profile.bio }}</p>
-<p>Location: {{ profile.location }}</p>
-<p>Birth Date: {{ profile.birth_date }}</p>
-<img src="{{ profile.avatar.url }}" alt="Avatar" />
-<img src="{{ profile.cover_image.url }}" alt="Cover Image" />
+{% extends 'base.html' %}
 
-<form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Выйти</button>
-</form>
+{% block content %}
+    <img src="{{ profile.avatar.url }}" alt="Avatar" />
+
+    <h1>{{ user.username }}'s Profile</h1>
+    <p>Email: {{ user.email }}</p>
+    <p>First Name: {{ user.first_name }}</p>
+    <p>Last Name: {{ user.last_name }}</p>
+    <p>Bio: {{ profile.bio }}</p>
+    <p>Location: {{ profile.location }}</p>
+    <p>Birth Date: {{ profile.birth_date }}</p>
+
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Выйти</button>
+    </form>
+{% endblock %}
