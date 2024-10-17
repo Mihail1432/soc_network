@@ -8,3 +8,8 @@
 <p>Birth Date: {{ profile.birth_date }}</p>
 <img src="{{ profile.avatar.url }}" alt="Avatar" />
 <img src="{{ profile.cover_image.url }}" alt="Cover Image" />
+
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Выйти</button>
+</form>

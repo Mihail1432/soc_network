@@ -31,13 +31,15 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="{% url 'profile' user.username %}" class="profile-link">
-                {% if user.profile.avatar %}
-                    <img src="{{ user.profile.avatar.url }}" alt="Аватар" style="width: 40px; height: 40px; border-radius: 50%;">
-                {% else %}
-                    <span>{{ user.username }}</span>
-                {% endif %}
-            </a>
+            {% if user.is_authenticated  %}
+                <a href="{% url 'profile' user.username %}" class="profile-link">
+                    {% if user.profile.avatar %}
+                        <img src="{{ user.profile.avatar.url }}" alt="Аватар" style="width: 40px; height: 40px; border-radius: 50%;">
+                    {% else %}
+                        <span>{{ user.username }}</span>
+                    {% endif %}
+                </a>
+            {% endif %}
             <h1 class="text-center">Название еще в стадии придумывания</h1>
             <div></div> <!-- Пустое пространство для выравнивания -->
         </div>

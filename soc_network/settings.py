@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authentication',
-    'post'
+    'authentication.apps.AuthenticationConfig',
+    'post',
 ]
 
 MIDDLEWARE = [
@@ -134,7 +134,7 @@ AUTH_USER_MODEL = 'authentication.CustomUser'
 
 
 # Настройки для работы с авторизацией
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'post_list'
+LOGOUT_REDIRECT_URL = 'post_list'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
