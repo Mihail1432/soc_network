@@ -33,6 +33,27 @@
             color: #007BFF; /* Цвет текста ссылки */
             text-decoration: none; /* Убираем подчеркивание */
         }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            position: relative; /* Устанавливает контекст для абсолютного позиционирования */
+            max-width: 900px; /* Максимальная ширина контейнера */
+            margin: 0 auto; /* Центрирование контейнера */
+            padding: 20px; /* Внутренние отступы */
+            border: 1px solid #ccc; /* Рамка */
+            border-radius: 10px; /* Закругленные углы */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Тень */
+        }
+        .post-image {
+            max-width: 820px; /* Максимальная ширина изображения 100% от родительского элемента */
+            height: auto; /* Автоматическая высота для сохранения пропорций */
+            border-radius: 5px; /* Закругление углов изображения (по желанию) */
+        }
+
+
 
     </style>
 </head>
@@ -42,7 +63,9 @@
             {% if user.is_authenticated  %}
                 <a href="{% url 'profile' user.username %}" class="profile-link">
                     {% if user.profile.avatar %}
-                        <img src="{{ user.profile.avatar.url }}" alt="Аватар" style="width: 40px; height: 40px; border-radius: 50%;">
+                        <div class=" container">
+                            <img src="{{ user.profile.avatar.url }}" alt="Аватар" style="width: 40px; height: 40px; border-radius: 50%;">
+                        </div>
                     {% else %}
                         <span>{{ user.username }}</span>
                     {% endif %}

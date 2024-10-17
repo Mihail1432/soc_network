@@ -25,6 +25,7 @@ def post_detail(request, post_id):
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
+            comment.author = request.user
             comment.user = request.user
             comment.post = post
             comment.save()
@@ -69,3 +70,12 @@ def post_delete(request, post_id):
         return redirect('post_list')
 
     return render(request, 'posts/post_confirm_delete.html', {'post': post})
+
+@login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+
+    if request.user == comment.author:
+        comment.delete()  # Удаляем комментарий
+        # Можно добавить сообщение об успешном удалении, если необходимо
+    return redirect('post_detail', post_id=comment.post.id) 

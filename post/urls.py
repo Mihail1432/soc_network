@@ -11,6 +11,7 @@ urlpatterns = [
     path('post/<int:post_id>/', views.post_detail, name='post_detail'),
     path('post/<int:post_id>/like/', views.like_post, name='like_post'),
     path('post/<int:post_id>/delete/', views.post_delete, name='post_delete'),
+    path('delete_comment/<int:comment_id>/', views.delete_comment, name='delete_comment'),
 ]
 
 if settings.DEBUG:

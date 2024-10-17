@@ -16,16 +16,14 @@
 
     {% for post in posts %}
         <div class="post">
-
-            
-            <div class="post-header">
-                <span><strong>{{ post.user.username }}</strong></span>
-                <span>{{ post.likes.count }}     <a href="{% url 'like_post' post.id %}">{{ is_liked|yesno:"Unlike,Like" }}</a> | {{ post.comments.count }} <a href="{% url 'post_detail' post.id %}" class="comment-link">Комментариев</a></span>
-            </div>
-            <img src="{{ post.image.url }}" alt="Пост" class="img-fluid mt-2" style="border-radius: 10px;">
-            <div class="mt-2">
-                <p>{{ post.text }}</p>
-            </div>
+                <div class="post-header">
+                    <span><strong>{{ post.user.username }}</strong></span>
+                    <span>{{ post.likes.count }}     <a href="{% url 'like_post' post.id %}">{{ is_liked|yesno:"Unlike,Like" }}</a> | {{ post.comments.count }} <a href="{% url 'post_detail' post.id %}" class="comment-link">Комментариев</a></span>
+                </div class = 'post-image'>
+                <img src="{{ post.image.url }}" alt="Пост" class="img-fluid mt-2" style="border-radius: 10px;">
+                <div class="mt-2">
+                    <p>{{ post.text }}</p>
+                </div>
         </div>
     {% empty %}
         <p class="text-center">Постов пока нет.</p>
