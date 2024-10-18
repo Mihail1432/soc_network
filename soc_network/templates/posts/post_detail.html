@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div>
+            <img src="{{ post.image.url }}" alt="post image" class = 'post-image'>
+            <p>{{ post.caption }}</p>
+            <p>Лайков: {{ post.total_likes }}</p>
+            <p>Комментариев: {{ post.total_comments }}</p>
+            <a href="{% url 'like_post' post.id %}">{{ is_liked|yesno:"Unlike,Like" }}</a>
+        </div>
+
+
+        {% if post.user == request.user %}
+
+                
+        <a href="{% url 'post_delete' post.id %}">Удалить</a>  <!-- Кнопка удаления -->
+
+
+        {% endif %}
+
+
+        <h2>Комментарии:</h2>
+        <ul>
+            {% for comment in comments %}
+                <li>{{ comment.user.username }}: {{ comment.text }}</li>
+                {% if user.is_authenticated and comment.user == request.user %}
+                <form method="post" action="{% url 'delete_comment' comment.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Удалить комментарий</button>
+                </form>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Добавить комментарий</button>
+        </form>
+    </div>
+{% endblock %}

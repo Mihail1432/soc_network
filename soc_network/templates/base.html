@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Название еще в стадии придумывания{% endblock %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .post {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .profile-link {
+            color: #ffffff;
+            text-decoration: none;
+        
+        }
+
+        .custom-link {
+            font-size: 35px; /* Увеличение размера текста */
+            color: #007BFF; /* Цвет текста ссылки */
+            text-decoration: none; /* Убираем подчеркивание */
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            position: relative; /* Устанавливает контекст для абсолютного позиционирования */
+            max-width: 900px; /* Максимальная ширина контейнера */
+            margin: 0 auto; /* Центрирование контейнера */
+            padding: 20px; /* Внутренние отступы */
+            border: 1px solid #ccc; /* Рамка */
+            border-radius: 10px; /* Закругленные углы */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Тень */
+        }
+        .post-image {
+            max-width: 820px; /* Максимальная ширина изображения 100% от родительского элемента */
+            height: auto; /* Автоматическая высота для сохранения пропорций */
+            border-radius: 5px; /* Закругление углов изображения (по желанию) */
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            {% if user.is_authenticated  %}
+                <a href="{% url 'profile' user.username %}" class="profile-link">
+                    {% if user.profile.avatar %}
+                        <div class=" container">
+                            <img src="{{ user.profile.avatar.url }}" alt="Аватар" style="width: 40px; height: 40px; border-radius: 50%;">
+                        </div>
+                    {% else %}
+                        <span>{{ user.username }}</span>
+                    {% endif %}
+                </a>
+            {% endif %}
+            <a href="{% url 'post_list' %}" class="custom-link" >Соцсеть</a>
+            <div></div> <!-- Пустое пространство для выравнивания -->
+        </div>
+        
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
