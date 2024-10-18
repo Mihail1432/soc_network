@@ -14,6 +14,21 @@
         {% csrf_token %}
         <button type="submit">Редактирование профиля</button>
     </form>
+        {% if request.user != profile_user %}
+        <!-- Только если это не мой профиль -->
+    
+            {% if chats_with_profile_user_exist %}
+                <!-- Если чат с этим пользователем уже существует -->
+                <p>Чат с {{ profile_user.username }} уже существует.</p>
+            {% else %}
+                <!-- Если чата с этим пользователем нет, показать кнопку для создания -->
+                <form action="{% url 'create_chat' profile_user.username %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Создать чат</button>
+                </form>
+            {% endif %}
+        {% endif %}
+    
 
 
     <form action="{% url 'logout' %}" method="post">

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <style>
+        .my-message {
+            text-align: right;
+            background-color: #dcf8c6;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+        .other-message {
+            text-align: left;
+            background-color: #fff;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 10px;
+        }
+        #message-form {
+            display: block !important; /* Убедитесь, что блок отображается */
+            margin-top: 10px; /* Добавьте отступ для удобства */
+        }
+    </style>
+
+    <div id="chat-window"></div>
+
+    <form id="message-form">
+        <input type="text" id="message-input" placeholder="Введите сообщение..." required>
+        <button type="submit">Отправить</button>
+    </form>
+    <p>Чат работает!</p>
+
+{% endblock %}
+
+{% block js %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function loadMessages() {
+                $.get("{% url 'chat_detail' chat.id %}", function(data) {
+                    $('#chat-window').empty();
+                    data.messages.forEach(function(message) {  // Обратите внимание на data.messages
+                        let messageClass = message.sender__username === "{{ user.username }}" ? 'my-message' : 'other-message';
+                        $('#chat-window').append('<div class="' + messageClass + '">' + message.content + '</div>');
+                    });
+                });
+            }
+    
+            setInterval(loadMessages, 3000);
+    
+            $('#message-form').on('submit', function(e) {
+                e.preventDefault();
+                $.post("{% url 'send_message' chat.id %}", {
+                    message: $('#message-input').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                }, function() {
+                    $('#message-input').val('');
+                    loadMessages();
+                });
+            });
+        });
+    </script>
+{% endblock %}

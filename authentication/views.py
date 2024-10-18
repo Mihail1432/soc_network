@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, UserUpdateForm, ProfileUpdateForm  # Убедитесь, что все формы импортированы
 from django.views.generic import TemplateView
 from .models import CustomUser
-
+from chatas.models import Chat
 
 def register(request):
     if request.method == 'POST':
@@ -57,11 +57,20 @@ def profile_view(request):
 @login_required
 def user_profile_view(request, username):
     user = get_object_or_404(CustomUser, username=username)
+    profile_user = CustomUser.objects.get(username=username)
     profile = user.profile  # Получаем профиль пользователя
+    chats = Chat.objects.filter(participants=request.user).prefetch_related('participants')
+    for chat in chats:
+        chat.other_user = chat.participants.exclude(id=request.user.id).first()
     
+
+
     context = {
         'user': user,
         'profile': profile,
+        'chats': Chat.objects.filter(participants=request.user),
+        'chats_with_profile_user_exist': chats.filter(participants=profile_user).exists(),
+        'profile_user': profile_user,
     }
     
     return render(request, 'profile/user_profile.html', context)
