@@ -1,9 +1,0 @@
-<!-- start_chat.html -->
-
-<h2>Start a Chat</h2>
-
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Start Chat</button>
-</form>
